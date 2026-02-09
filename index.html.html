@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vishal 💘 Harshita</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Georgia", serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(to bottom, #ffd6e8, #fff0f6);
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #b3005e;
+      text-shadow: 0px 0px 10px pink;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .buttons {
+      position: relative;
+      height: 200px;
+      width: 400px;
+    }
+
+    button {
+      font-size: 22px;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.3s;
+      box-shadow: 0px 0px 12px rgba(255, 105, 180, 0.5);
+    }
+
+    #yesBtn {
+      background: #ff4d88;
+      color: white;
+      left: 90px;
+      top: 80px;
+    }
+
+    #noBtn {
+      background: white;
+      color: #444;
+      left: 220px;
+      top: 80px;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 2.2rem;
+      color: #b3005e;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #dateText {
+      font-size: 1.3rem;
+      color: #660033;
+      margin-top: 15px;
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      animation: floatUp 7s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Vishal… will you be my Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 😢</button>
+  </div>
+
+  <div id="message"></div>
+  <div id="dateText"></div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    const message = document.getElementById("message");
+    const dateText = document.getElementById("dateText");
+
+    const bgMusic = document.getElementById("bgMusic");
+
+    let yesSize = 22;
+
+    // ✅ MUSIC AUTOPLAY ON FIRST CLICK ANYWHERE
+    document.body.addEventListener("click", () => {
+      bgMusic.play();
+    }, { once: true });
+
+    // Store original position of NO button
+    const originalLeft = noBtn.style.left;
+    const originalTop = noBtn.style.top;
+
+    // ✅ NO button runs away while hovering
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 300;
+      const y = Math.random() * 150;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+
+      // YES button grows
+      yesSize += 4;
+      yesBtn.style.fontSize = yesSize + "px";
+    });
+
+    // ✅ NO button comes back when cursor leaves
+    noBtn.addEventListener("mouseleave", () => {
+      noBtn.style.left = originalLeft;
+      noBtn.style.top = originalTop;
+    });
+
+    // YES click romantic surprise
+    yesBtn.addEventListener("click", () => {
+      message.innerHTML = "Yay Vishal… we’re Valentines 💗";
+
+      dateText.innerHTML = `
+        Let’s have a romantic day together, Vishal 🌹<br>
+        Maybe fairy lights, soft music, and just us…<br><br>
+
+        No big plans needed, because the best part will be<br>
+        spending the day with you 💕<br><br>
+
+        Happy Valentine’s Day, my love.<br>
+        Forever yours, Harshita 💘
+      `;
+
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+</body>
+</html>
